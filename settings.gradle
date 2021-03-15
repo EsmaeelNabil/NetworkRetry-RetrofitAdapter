@@ -1,0 +1,3 @@
+include ':NetworkRetryCallAdapter'
+include ':app'
+rootProject.name = "NetworkRetry-RetrofitAdapter"
