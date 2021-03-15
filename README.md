@@ -18,8 +18,9 @@ dependencies {
 	  implementation 'com.github.EsmaeelNabil:NetworkRetry-RetrofitAdapter:0.3'
 }
 ```
-## Usage - Features
+## Usage :
 
+#### add this line in your retrofit implementation.
 ``` kotlin
 
 Retrofit.Builder()
@@ -29,3 +30,29 @@ Retrofit.Builder()
             .build()
 
 ```
+
+
+### if you have extented an `Application` class
+
+1 - make those changes : 
+  - in the `AndroidManifest.xml` add this line to replace the `library` application class.
+``` kotlin 
+<application
+        ....
+	tools:replace="android:name"
+	....
+	/>
+```
+2- in your `application class`'s `onCreate()` add those:
+```kotlin 
+class ApplicationInstance : Application() {
+
+override fun onCreate() {
+        super.onCreate()
+        initNetworkStateHandler()
+        registerActivityTracker()
+    }
+}
+```
+
+3- then add this to retrofit like above `addCallAdapterFactory(NetworkRetryCallAdapterFactory.create())`
