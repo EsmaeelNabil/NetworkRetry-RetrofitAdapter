@@ -1,6 +1,5 @@
-package com.pixiedia.pixicommerce.command
+package com.esmaeel.networkretrycalladapterlibrary
 
-import com.esmaeel.networkretrycalladapterlibrary.showNetworkDialog
 import com.esmaeel.statelib.currentActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

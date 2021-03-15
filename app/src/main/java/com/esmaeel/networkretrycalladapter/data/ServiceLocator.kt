@@ -2,7 +2,7 @@ package com.esmaeel.networkretrycalladapter.data
 
 import androidx.databinding.library.BuildConfig
 import com.google.gson.Gson
-import com.pixiedia.pixicommerce.command.NetworkRetryCallAdapterFactory
+import com.esmaeel.networkretrycalladapterlibrary.NetworkRetryCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

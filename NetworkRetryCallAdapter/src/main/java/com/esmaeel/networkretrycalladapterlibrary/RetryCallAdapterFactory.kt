@@ -1,4 +1,4 @@
-package com.pixiedia.pixicommerce.command
+package com.esmaeel.networkretrycalladapterlibrary
 
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
