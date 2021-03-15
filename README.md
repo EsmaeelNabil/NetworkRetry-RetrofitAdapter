@@ -23,9 +23,9 @@ dependencies {
 ``` kotlin
 
 Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .....
+            ...
             .addCallAdapterFactory(NetworkRetryCallAdapterFactory.create())
+	    ...
             .build()
 
 ```
