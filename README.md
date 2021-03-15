@@ -32,7 +32,7 @@ Retrofit.Builder()
 ```
 
 
-### if you have extented an `Application` class
+### ♨️ if you have extented an `Application` class
 
 1 - make those changes : 
   - in the `AndroidManifest.xml` add this line to replace the `library` application class.
