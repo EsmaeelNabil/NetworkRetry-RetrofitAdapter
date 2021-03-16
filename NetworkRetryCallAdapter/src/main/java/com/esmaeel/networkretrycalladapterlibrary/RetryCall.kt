@@ -6,10 +6,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.Request
 import okio.Timeout
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.awaitResponse
+import retrofit2.*
 import java.io.IOException
 
 
@@ -35,10 +32,7 @@ internal class NetworkRetryCall<R>(private val delegate: Call<R>) : Call<R> {
                 if (response.isSuccessful)
                     callback.onResponse(this@NetworkRetryCall, Response.success(response.body()))
                 else
-                    callback.onFailure(
-                        this@NetworkRetryCall,
-                        Throwable(response.errorBody()?.string())
-                    )
+                    callback.onFailure(this@NetworkRetryCall, HttpException(response))
 
             } catch (e: Exception) {
                 when (e) {
