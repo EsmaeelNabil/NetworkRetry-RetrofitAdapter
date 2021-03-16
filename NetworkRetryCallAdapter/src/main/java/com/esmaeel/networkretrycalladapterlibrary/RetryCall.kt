@@ -12,21 +12,69 @@ import retrofit2.Response
 import retrofit2.awaitResponse
 import java.io.IOException
 
+class  CallDefault<R>():Call<R>{
+    override fun clone(): Call<R> {
+        TODO("Not yet implemented")
+    }
+
+    override fun execute(): Response<R> {
+        TODO("Not yet implemented")
+    }
+
+    override fun enqueue(callback: Callback<R>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun isExecuted(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun cancel() {
+        TODO("Not yet implemented")
+    }
+
+    override fun isCanceled(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun request(): Request {
+        TODO("Not yet implemented")
+    }
+
+    override fun timeout(): Timeout {
+        TODO("Not yet implemented")
+    }
+
+}
+
 
 /**
  * R is the the response type
  * delegate is the actual call 'the default retrofit call'
  */
-internal class NetworkRetryCall<R>(private val delegate: Call<R>) : Call<R> {
+class NetworkRetryCall<R>(
+    private val delegate: Call<R>,
+    private val onNetworkError: onNetworkError = null
+) : Call<R> {
 
     // our custom implementation for the retry callback
     override fun enqueue(callback: Callback<R>) {
-        makeRequest(delegate, callback)
+        makeRequest(delegate, callback, onNetworkError)
+    }
+
+    lateinit var repeatedCall: Call<R>
+    lateinit var repeatedCallback: Callback<R>
+    var repeatedOnNetworkError: onNetworkError = null
+
+    private fun retryLastCall() {
+        this.onNetworkError?.let {
+            makeRequest(this.repeatedCall, this.repeatedCallback, repeatedOnNetworkError)
+        }
     }
 
 
     // separate function to be able to call it self again of retry.
-    private fun makeRequest(call: Call<R>, callback: Callback<R>) {
+    fun makeRequest(call: Call<R>, callback: Callback<R>, onNetworkError: onNetworkError) {
         GlobalScope.launch(Dispatchers.IO) {
             try {
 
@@ -47,11 +95,31 @@ internal class NetworkRetryCall<R>(private val delegate: Call<R>) : Call<R> {
                         // show dialog and wait for user response
                         // then return the success response.
                         /* Network Error (WIFI for example) */
-                        currentActivity?.showNetworkDialog(
-                            error = e.message ?: "",
-                            onRetry = {
-                                makeRequest(call.clone(), callback)
-                            })
+
+
+                        // cache the last failed network call to be able to repeat again from outside
+                        this@NetworkRetryCall.repeatedCall = this@NetworkRetryCall.clone()
+                        this@NetworkRetryCall.repeatedCallback = callback
+                        this@NetworkRetryCall.repeatedOnNetworkError = onNetworkError
+
+                        // invoke if provided else run this block
+                        GlobalScope.launch(Dispatchers.Main) {
+                            onNetworkError?.invoke(
+                                this@NetworkRetryCall.clone(),
+                                e
+                            ) {
+
+                                // on retry logic finished this gets invoked
+                                retryLastCall()
+                            }
+                        }
+                            ?: run {
+                                currentActivity?.showNetworkDialog(
+                                    error = e.message ?: "",
+                                    onRetry = {
+                                        retryLastCall()
+                                    })
+                            }
                     }
 
                     else -> {

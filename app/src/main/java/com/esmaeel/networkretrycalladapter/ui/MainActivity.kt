@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
-    private var apiService = ServiceLocator.getApiService()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
 
-            val data = apiService.getUsers().data
+            val data = ServiceLocator.getApiService(this@MainActivity).getUsers().data
 
             withContext(Dispatchers.Main) {
                 findViewById<TextView>(R.id.dataText).text = data.toString()

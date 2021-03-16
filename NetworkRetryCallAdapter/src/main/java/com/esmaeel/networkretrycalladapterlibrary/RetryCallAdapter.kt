@@ -10,10 +10,11 @@ import java.lang.reflect.Type
 
 
 internal class NetworkRetryCallAdapter<R, T>(
-    private val delegated: CallAdapter<R, T>
+    private val delegated: CallAdapter<R, T>,
+    private val onNetworkError: onNetworkError = null
 ) : CallAdapter<R, T> {
 
-    override fun adapt(call: Call<R>): T = delegated.adapt(NetworkRetryCall(call))
+    override fun adapt(call: Call<R>): T = delegated.adapt(NetworkRetryCall(call, onNetworkError))
 
     override fun responseType(): Type = delegated.responseType()
 }
