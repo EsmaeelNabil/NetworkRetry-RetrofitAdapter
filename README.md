@@ -15,7 +15,7 @@ allprojects {
 And add a dependency code to your **APP**'s `build.gradle` file. [![](https://jitpack.io/v/EsmaeelNabil/NetworkRetry-RetrofitAdapter.svg)](https://jitpack.io/#EsmaeelNabil/NetworkRetry-RetrofitAdapter)
 ```gradle
 dependencies {
-	  implementation 'com.github.EsmaeelNabil:NetworkRetry-RetrofitAdapter:0.3'
+	  implementation 'com.github.EsmaeelNabil:NetworkRetry-RetrofitAdapter:0.4'
 }
 ```
 ## Usage :
