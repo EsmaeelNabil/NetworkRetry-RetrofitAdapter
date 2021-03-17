@@ -1,31 +1,26 @@
-package com.esmaeel.networkretrycalladapter.data
+package com.esmaeel.networkretry.data
 
-import android.app.Activity
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.library.BuildConfig
+import com.esmaeel.networkretry.DialogManager
 import com.esmaeel.networkretrycalladapterlibrary.NetworkRetryCallAdapterFactory
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class ServiceLocator private constructor() {
+
+class ServiceLocator @Inject constructor(private val dialogManager: DialogManager) {
 
     private fun getNetworkRetryCallAdapter(): NetworkRetryCallAdapterFactory {
         return NetworkRetryCallAdapterFactory.create { call, exception, retryCall ->
 
-            Toast.makeText(activity.applicationContext, exception.message, Toast.LENGTH_SHORT)
-                .show()
+            dialogManager.showNetworkScreen(
+                message = exception.message ?: "",
+                onRetry = { retryCall() }
+            )
 
-            val dialog = AlertDialog.Builder(activity)
-            dialog.setMessage(exception.message)
-                .setPositiveButton(
-                    "Try again!"
-                ) { dialog, which ->
-                    retryCall.invoke()
-                }.show()
         }
     }
 
@@ -33,7 +28,7 @@ class ServiceLocator private constructor() {
         return Retrofit.Builder()
             .baseUrl("https://reqres.in/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(NetworkRetryCallAdapterFactory.create())
+            .addCallAdapterFactory(getNetworkRetryCallAdapter())
             .client(client)
             .build()
     }
@@ -52,22 +47,6 @@ class ServiceLocator private constructor() {
             .build()
     }
 
-    companion object {
-        private var manager: ServiceLocator? = null
-        private lateinit var activity: Activity
+    fun apiService() = getRetrofit(getHttpClient(), Gson()).create(ApiService::class.java)
 
-        fun getApiService(activity: Activity): ApiService {
-            this.activity = activity
-            if (manager == null) {
-                manager = ServiceLocator()
-            }
-
-            return manager!!
-                .getRetrofit(
-                    manager!!.getHttpClient(),
-                    Gson()
-                )
-                .create(ApiService::class.java)
-        }
-    }
 }

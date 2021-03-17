@@ -1,4 +1,4 @@
-package com.esmaeel.networkretrycalladapter.data
+package com.esmaeel.networkretry.data
 
 import retrofit2.http.GET
 

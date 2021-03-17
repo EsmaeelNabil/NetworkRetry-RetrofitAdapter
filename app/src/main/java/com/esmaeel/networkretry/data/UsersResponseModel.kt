@@ -1,4 +1,4 @@
-package com.esmaeel.networkretrycalladapter.data
+package com.esmaeel.networkretry.data
 
 data class UsersResponseModel(
     val `data`: List<Data?>? = listOf(),

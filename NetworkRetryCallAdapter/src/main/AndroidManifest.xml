@@ -3,6 +3,6 @@
     package="com.esmaeel.networkretrycalladapterlibrary">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <application android:name=".AppInstance" />
+    <application/>
 
 </manifest>
