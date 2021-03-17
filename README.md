@@ -30,3 +30,8 @@ Retrofit.Builder()
 
 ```
 
+
+## customization :
+- to provide a new design for the screen that shows by default create a [no_internet_view](https://github.com/EsmaeelNabil/NetworkRetry-RetrofitAdapter/blob/master/NetworkRetryCallAdapter/src/main/res/layout/no_internet_view.xml) xml layout file with the added ui components 
+- `but` make sure the file has the same `name` and view's `types` and `id` ar the same as well 😁.
+
