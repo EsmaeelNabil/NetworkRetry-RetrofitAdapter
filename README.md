@@ -20,7 +20,7 @@ dependencies {
 ```
 ## Usage :
 
-#### add this line in your retrofit implementation.
+#### add those in your retrofit implementation.
 ``` kotlin
 
 fun getNetworkRetryCallAdapter(): NetworkRetryCallAdapterFactory {
