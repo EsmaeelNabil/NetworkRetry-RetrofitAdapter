@@ -26,7 +26,7 @@ dependencies {
 Retrofit.Builder()
             ...
             .addCallAdapterFactory(NetworkRetryCallAdapterFactory.create())
-	    ...
             .build()
 
 ```
+
