@@ -40,3 +40,6 @@ Retrofit.Builder()
             .build()
 
 ```
+
+#### `dialogManager.showNetworkScreen` screen design.
+![dialogManager.showNetworkScreen](art/screen.png)
