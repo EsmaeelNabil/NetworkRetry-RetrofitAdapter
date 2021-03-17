@@ -41,5 +41,5 @@ Retrofit.Builder()
 
 ```
 
-#### `dialogManager.showNetworkScreen` screen design.
+#### [dialogManager.showNetworkScreen](https://github.com/EsmaeelNabil/NetworkRetry-RetrofitAdapter/blob/master/app/src/main/java/com/esmaeel/networkretry/utils/DialogManager.kt#L31) screen design.
 ![dialogManager.showNetworkScreen](art/screen.png)
