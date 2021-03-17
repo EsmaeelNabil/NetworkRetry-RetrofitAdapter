@@ -1,4 +1,6 @@
 # NetworkRetry-RetrofitAdapter
+- A retry mechanism with the call it self without bothering the ui to choose what to retry and without complex loigc!.
+- the response won't even come back if you didn't hit retry button so it's the Actual call that you requested is what is being used.
 
 ## Including in your project
 [![](https://jitpack.io/v/EsmaeelNabil/NetworkRetry-RetrofitAdapter.svg)](https://jitpack.io/#EsmaeelNabil/NetworkRetry-RetrofitAdapter)
