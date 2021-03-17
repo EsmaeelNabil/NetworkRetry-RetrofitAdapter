@@ -1,17 +1,27 @@
-package com.esmaeel.networkretrycalladapter.data
+package com.esmaeel.networkretry.data
 
 import androidx.databinding.library.BuildConfig
-import com.google.gson.Gson
+import com.esmaeel.networkretry.DialogManager
 import com.esmaeel.networkretrycalladapterlibrary.NetworkRetryCallAdapterFactory
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class ServiceLocator private constructor() {
+
+class ServiceLocator @Inject constructor(private val dialogManager: DialogManager) {
 
     private fun getNetworkRetryCallAdapter(): NetworkRetryCallAdapterFactory {
-        return NetworkRetryCallAdapterFactory.create()
+        return NetworkRetryCallAdapterFactory.create { call, exception, retryCall ->
+
+            dialogManager.showNetworkScreen(
+                message = exception.message ?: "",
+                onRetry = { retryCall() }
+            )
+
+        }
     }
 
     private fun getRetrofit(client: OkHttpClient, gson: Gson): Retrofit {
@@ -37,21 +47,6 @@ class ServiceLocator private constructor() {
             .build()
     }
 
-    companion object {
-        private var manager: ServiceLocator? = null
+    fun apiService() = getRetrofit(getHttpClient(), Gson()).create(ApiService::class.java)
 
-        fun getApiService(): ApiService {
-
-            if (manager == null) {
-                manager = ServiceLocator()
-            }
-
-            return manager!!
-                .getRetrofit(
-                    manager!!.getHttpClient(),
-                    Gson()
-                )
-                .create(ApiService::class.java)
-        }
-    }
 }

@@ -1,4 +1,4 @@
-package com.esmaeel.networkretrycalladapter
+package com.esmaeel.networkretry
 
 import org.junit.Test
 

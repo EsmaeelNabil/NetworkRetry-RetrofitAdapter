@@ -3,12 +3,6 @@
     package="com.esmaeel.networkretrycalladapterlibrary">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <application>
-        <provider
-            android:name=".provider.NetworkRetryInitializer"
-            android:authorities="${applicationId}.NetworkRetryInitializer"
-            android:enabled="true"
-            android:exported="false" />
-    </application>
+    <application/>
 
 </manifest>

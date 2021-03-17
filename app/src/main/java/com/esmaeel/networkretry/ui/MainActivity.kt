@@ -1,21 +1,25 @@
-package com.esmaeel.networkretrycalladapter.ui
+package com.esmaeel.networkretry.ui
 
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.esmaeel.networkretrycalladapter.R
-import com.esmaeel.networkretrycalladapter.data.ServiceLocator
+import com.esmaeel.networkretry.R
+import com.esmaeel.networkretry.data.ServiceLocator
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private var apiService = ServiceLocator.getApiService()
+    @Inject
+    lateinit var serviceLocator: ServiceLocator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +31,8 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                val data = apiService.getUsers().data
+
+                val data = serviceLocator.apiService().getUsers().data
 
                 withContext(Dispatchers.Main) {
                     findViewById<TextView>(R.id.dataText).text = data.toString()
