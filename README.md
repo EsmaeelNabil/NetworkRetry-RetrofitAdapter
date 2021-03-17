@@ -42,4 +42,6 @@ Retrofit.Builder()
 ```
 
 #### [dialogManager.showNetworkScreen](https://github.com/EsmaeelNabil/NetworkRetry-RetrofitAdapter/blob/master/app/src/main/java/com/esmaeel/networkretry/utils/DialogManager.kt#L31) screen design.
-![dialogManager.showNetworkScreen](art/screen.png | width=100)
+<img src="art/screen.png" alt="dialogManager.showNetworkScreen" width="300">
+
+
