@@ -1,7 +1,7 @@
 package com.esmaeel.networkretry.data
 
 import androidx.databinding.library.BuildConfig
-import com.esmaeel.networkretry.DialogManager
+import com.esmaeel.networkretry.utils.DialogManager
 import com.esmaeel.networkretrycalladapterlibrary.NetworkRetryCallAdapterFactory
 import com.google.gson.Gson
 import okhttp3.OkHttpClient

@@ -15,7 +15,7 @@ allprojects {
 And add a dependency code to your **APP**'s `build.gradle` file. [![](https://jitpack.io/v/EsmaeelNabil/NetworkRetry-RetrofitAdapter.svg)](https://jitpack.io/#EsmaeelNabil/NetworkRetry-RetrofitAdapter)
 ```gradle
 dependencies {
-	  implementation 'com.github.EsmaeelNabil:NetworkRetry-RetrofitAdapter:0.4'
+	  implementation 'com.github.EsmaeelNabil:NetworkRetry-RetrofitAdapter:0.5'
 }
 ```
 ## Usage :
@@ -23,16 +23,20 @@ dependencies {
 #### add this line in your retrofit implementation.
 ``` kotlin
 
+fun getNetworkRetryCallAdapter(): NetworkRetryCallAdapterFactory {
+        return NetworkRetryCallAdapterFactory.create { call, exception, retryCall ->
+
+            dialogManager.showNetworkScreen(
+                message = exception.message ?: "",
+                onRetry = { retryCall() }
+            )
+
+        }
+    }
+
 Retrofit.Builder()
             ...
-            .addCallAdapterFactory(NetworkRetryCallAdapterFactory.create())
+            .addCallAdapterFactory(getNetworkRetryCallAdapter())
             .build()
 
 ```
-
-
-## customization :
-##### to provide a new design for the screen that shows by default 
-- create a [no_internet_view](https://github.com/EsmaeelNabil/NetworkRetry-RetrofitAdapter/blob/master/NetworkRetryCallAdapter/src/main/res/layout/no_internet_view.xml) xml layout file with the added ui components 
-- make sure the file has the same `name` and view's `types` and `id` ar the same as well 😁.
-

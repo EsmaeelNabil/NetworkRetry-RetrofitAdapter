@@ -1,4 +1,4 @@
-package com.esmaeel.networkretry
+package com.esmaeel.networkretry.utils
 
 import android.app.Activity
 import android.app.Dialog
@@ -6,6 +6,7 @@ import android.content.Context
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.esmaeel.networkretry.R
 import com.esmaeel.networkretry.databinding.NoInternetViewBinding
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
